@@ -1,0 +1,1 @@
+ALTER TABLE profissionais ADD CONSTRAINT uk_profissionais_nome UNIQUE (nome);
