@@ -1,6 +1,7 @@
 package com.lucianodev.sistemaagendamentoia.controller.handler;
 
 import com.lucianodev.sistemaagendamentoia.dto.CustomErrorDto;
+import com.lucianodev.sistemaagendamentoia.exception.ConflictException;
 import com.lucianodev.sistemaagendamentoia.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,6 +20,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CustomErrorDto> dataIntegrityViolation(HttpServletRequest request) {
         String msgLimpa = "Conflito de dados: Já existe um registro com essas informações (ex: nome duplicado).";
         return builderResponse(HttpStatus.CONFLICT, msgLimpa, request);
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<CustomErrorDto> conflict(ConflictException e, HttpServletRequest request){
+        return builderResponse(HttpStatus.CONFLICT, e.getMessage(), request);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
