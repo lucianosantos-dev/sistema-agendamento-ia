@@ -109,7 +109,7 @@ public class ServicoTest {
                 () -> servicoService.findById(servico.getId()));
 
         verify(repository, times(1)).findById(servico.getId());
-        verify(repository, never()).save(any());
+        verify(servicoMapper, never()).toResponse(any());
     }
 
     @Test
